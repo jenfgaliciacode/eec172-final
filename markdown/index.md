@@ -4,26 +4,11 @@ author: '**Jen Galicia and Michael Swinton** (website template by Ryan Tsang)'
 date: '*EEC172 SQ24*'
 
 subtitle: '<blockquote><b>EEC172 Final Project: Smart Inventory Management System</b><br/>
-Note to current students: this is an <i>example</i> webpage and
-may not fulfill all stated requirements of the current quarter''s 
-assignment.<br/>The website source is hosted 
-<a href="https://github.com/ucd-eec172/project-website-example">on github</a>.
 </blockquote>'
 
 toc-title: 'Table of Contents'
 abstract-title: '<h2>Description</h2>'
-abstract: 'Hydroponics is a technique where plants are grown in a nutrient-rich
-solution. This soil- free technique has been gaining traction recently
-due to its ability to optimize resource utilization. However, since
-plants are highly sensitive to changes in TDS, hydroponic setups require
-continuous TDS monitoring and adjustment. NutriSense, our device, allows
-hobbyists to achieve ideal hydroponics results on a small scale. It
-continuously monitors TDS and temperature, allowing the user to remotely
-read the status over AWS IoT cloud. The user can remotely enter upper
-and lower thresholds for TDS, and the device will automatically add
-nutrient solution or water to keep the TDS bounded by the thresholds.
-The device can also be configured to send notifications over SNS when
-the TDS value goes outside thresholds.
+abstract: 'The Smart Inventory Management System tracks inventory levels in real-time and alerts users when the stock is low, full, etc.
 <br/><br/>
 Our source code can be found 
 <!-- replace this link -->
