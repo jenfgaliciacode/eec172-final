@@ -4,6 +4,11 @@ author: '**Jen Galicia and Michael Swinton** (website template by Ryan Tsang)'
 date: '*EEC172 SQ24*'
 
 subtitle: '<blockquote><b>EEC172 Final Project: Smart Inventory Management System</b><br/>
+Note to current students: this is an <i>example</i> webpage and
+may not fulfill all stated requirements of the current quarter''s 
+assignment.<br/>The website source is hosted 
+<a href="https://github.com/ucd-eec172/project-website-example">on github</a>.
+</blockquote>'
 
 toc-title: 'Table of Contents'
 abstract-title: '<h2>Description</h2>'
@@ -44,6 +49,46 @@ Our source code can be found
 </div>
 '
 ---
+
+# Market Survey
+
+There are two types of similar product on the market. The first one is
+products from AeroGarden. Their products allow users to grow plants in
+nutrient solutions in a limited amount of usually 5 to 10. Compared with
+this product, our product provides an automated system for nutrient
+control that ensures the plant always has the correct amount of
+nutrients needed to avoid excess or insufficient nutrients. The other
+product is an expensive commercial system for horticulture aiming for a
+large scale of growth. Compared with this one, our product has the
+advantage of being cheap and small-scale which is more suitable for
+individual hobbyists to explore hydroponics.
+
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
+  <div style='display: inline-block; vertical-align: top;'>
+    <img src="./media/Image_003.jpg" style="width:auto;height:200"/>
+    <span class="caption">
+      <a href="https://aerogarden.com/gardens/harvest-family/Harvest-2.0.html">AeroGarden Harvest 2.0</a>
+      <ul style="text-align:left;">
+      <li>Inexpensive ($90)</li>
+      <li>Not Automated</li>
+      <li>Small Scale</li>
+      <li>No remote monitoring</li>
+    </ul>
+    </span>
+  </div>
+  <div style='display: inline-block; vertical-align: top;'>
+    <img src="./media/Image_004.jpg" style="width:auto;height:200" />
+    <span class="caption">
+      <a href="https://www.hydroexperts.com.au/Autogrow-MultiGrow-Controller-All-In-One-Controller-8-Growing-Zones">Autogrow Multigrow</a>
+      <ul style="text-align:left;">
+      <li>Expensive ($4500)</li>
+      <li>Fully Automated</li>
+      <li>Huge Scale</li>
+      <li>Cloud monitoring</li>
+    </ul>
+    </span>
+  </div>
+</div>
 
 # Design
 
