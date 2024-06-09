@@ -67,7 +67,7 @@ All of the control and logic is handled by the CC3200 Launchpad Board. The board
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
-      <img src="./media/IR-Receiver.jpg" style="width:auto;height:2.5in" />
+      <img src="./media/IR-Reciever.jpg" style="width:auto;height:2.5in" />
       <span class="caption">IR Receiver Wiring Diagram</span>
     </div>
   </div>
