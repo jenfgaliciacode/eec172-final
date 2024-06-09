@@ -31,7 +31,7 @@ Our source code can be found
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 400px;">
     <div class="fig">
-      <img src="./media/System-Architecture.drawio.png" style="width:90%;height:auto;" />
+      <img src="./media/System-Architecture.jpg" style="width:90%;height:auto;" />
       <span class="caption">System Flowchart</span>
     </div>
   </div>
@@ -41,24 +41,11 @@ Our source code can be found
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
   <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
-    Our system works based on the following state diagram. The device will
-    periodically monitor the temperature and the electrical conductivity
-    (EC) of the solution and convert the values into a TDS value using a
-    calibration curve. At the same time, the device will check for threshold
-    inputs, both over the AWS shadow and via manual input on the IR
-    receiver. It will compare the TDS with the lower and upper thresholds
-    set by the user. If the value is within the thresholds, it will stay in
-    the rest state. If the TDS is higher than the upper thresholds, it will
-    go to the water state and activate the water pump until the PPM is lower
-    than the upper thresholds and go back to the rest state. If the PPM is
-    lower than the lower thresholds, it will go to the nutrient state and
-    activate the nutrient pump until the PPM is higher than the lower
-    thresholds and go back to the rest state. In each state, the device will
-    periodically post the TDS.
+    The state diagram illustrates the functionality of our system. The system begins at the 'Start Screen' where the user is prompted to press 'Enter' whenever they are ready to start using the Smart Inventory Management System. Next, the user is asked to enter an item name, using the IR remote controller. Once a valid item name is entered, the system requires the user to calibrate the weight sensor. This can be done by placing an object of known weight onto the sensor (in our case we used a roll of tape that weighed 66 grams). After the weight sensor is calibrated, the user is asked to place a single item onto the weight scale to track. After placing the weight of the single item, the user is then asked to place the rest of the items onto the scale and the inventory tracking system becomes active. This data is transmitted to the CC3200 board, which monitors the inventory weight. If the weight reaches a specified threshold, the board sends an alert to AWS, which notifies the user via email with inventory details.
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
-      <img src="./media/Image_006.jpg" style="width:90%;height:auto;" />
+      <img src="./media/FunctionalSpecification.jpg" style="width:90%;height:auto;" />
       <span class="caption">State Diagram</span>
     </div>
   </div>
