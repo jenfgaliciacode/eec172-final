@@ -130,20 +130,24 @@ information through AWS.</p>
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
     The weight sensor module consists of two components. The first component is the 20kg load cell. The load cell has 4 leads and a 5-10V drive voltage. It produces a direct output voltage signal due to force changes. To properly use the load cell, one end of the sensor is fixed by the screw hole while the other end is kept in a floating state. Force is applied on the side that is floating.  The second component of the weight sensor module is the HX711 AD Weight Module. This module uses 24 high-precision A/D converter chip HX711, is designed for high precision electronic scale and design. To interface with this weight sensor module, we first had to make the right connections between the 20kg load cell and the HX711 as well as between the HX711 and the CC3200.
-    * red wire (load cell) -> E+ (HX711)
-    * black wire (load cell) -> E- (HX711)
-    * green wire (load cell) -> A+ (HX711)
-    * white wire (load cell) -> A- (HX711)
-    * 5V (CC3200)          -> Vin (HX711)
-    * gnd (HX711)          -> gnd (CC3200)
-    * output GPIO (CC3200) -> clk(HX711)
-    * dataOut(HX711)       -> input GPIO
+    <ul>
+      <li>red wire (load cell) -> E+ (HX711)</li>
+      <li>black wire (load cell) -> E- (HX711)</li>
+      <li>green wire (load cell) -> A+ (HX711)</li>
+      <li>white wire (load cell) -> A- (HX711)</li>
+      <li>5V (CC3200) -> Vin (HX711)</li>
+      <li>gnd (HX711) -> gnd (CC3200)</li>
+      <li>output GPIO (CC3200) -> clk(HX711)</li>
+      <li>dataOut(HX711) -> input GPIO</li>
+    </ul>
     After making the right connections, in order to read data from the sensor we had to write code to follow the procedures of the custom serial protocol detailed in the HX711 data sheet. These procedures included:
-    * When dataOut is not ready for retrieval, the pin is high
-    * When dataOut goes low, it indicates data is ready for retrieval
-    * By applying 25 positive clock pulses at the clk pin, data is shifted out from the dataOut ouput pin
-    * Each clk pulse shifts out one bit, starting with the LSB first until all 24 bits are shifted out
-    * The 25th clk pulse pulls dataOut pin back to high
+    <ul>
+      <li>When dataOut is not ready for retrieval, the pin is high</li>
+      <li>When dataOut goes low, it indicates data is ready for retrieval</li>
+      <li>By applying 25 positive clock pulses at the clk pin, data is shifted out from the dataOut ouput pin</li>
+      <li>Each clk pulse shifts out one bit, starting with the LSB first until all 24 bits are shifted out</li>
+      <li>The 25th clk pulse pulls dataOut pin back to high</li>
+    </ul>
     Once we were able to read the raw sensor data, the data needed to go through processing such as averaging and calibration. After all that, the weight sensor is ready prepared to give accurate weight readings.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
