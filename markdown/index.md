@@ -3,77 +3,23 @@ title: 'Smart Inventory Management System'
 author: '**Jen Galicia and Michael Swinton** (website template by Ryan Tsang)'
 date: '*EEC172 SQ24*'
 
-subtitle: '<blockquote><b>EEC172 Final Project: Smart Inventory Management System</b><br/>
-</blockquote>'
-
 toc-title: 'Table of Contents'
 abstract-title: '<h2>Description</h2>'
-abstract: 'The Smart Inventory Management System tracks inventory levels in real-time and alerts users when the stock is low, full, etc.
+abstract: 'The Smart Inventory Management System tracks inventory levels in real-time and alerts users when stock levels fall below predefined thresholds or reach maximum capacity. Our product is designed to optimize inventory control for its users by providing instant visibility and insights to ensure efficient stock management.
 <br/><br/>
 Our source code can be found 
 <!-- replace this link -->
 <a href="https://github.com/ucd-eec172/project-website-example">
   here (placeholder)</a>.
 
-<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;padding-top:20px">
-  <div style="display: inline-block; vertical-align: bottom;">
-    <img src="./media/Image_001.jpg" style="width:auto;height:2in"/>
-    <!-- <span class="caption"> </span> -->
-  </div>
-  <div style="display: inline-block; vertical-align: bottom;">
-    <img src="./media/Image_002.jpg" style="width:auto;height:2in" />
-    <!-- <span class="caption"> </span> -->
-  </div>
-</div>
-
 <h2>Video Demo</h2>
 <div style="text-align:center;margin:auto;max-width:560px">
   <div style="padding-bottom:56.25%;position:relative;height:0;">
-    <iframe style="left:0;top:0;width:100%;height:100%;position:absolute;" width="560" height="315" src="https://www.youtube.com/embed/wSRtnAEZhmc?si=3vQXNj4h0WkW-F-q" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe style="left:0;top:0;width:100%;height:100%;position:absolute;" width="560" height="315" src="https://youtu.be/svfLRaA66TI" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 </div>
 '
 ---
-
-# Market Survey
-
-There are two types of similar product on the market. The first one is
-products from AeroGarden. Their products allow users to grow plants in
-nutrient solutions in a limited amount of usually 5 to 10. Compared with
-this product, our product provides an automated system for nutrient
-control that ensures the plant always has the correct amount of
-nutrients needed to avoid excess or insufficient nutrients. The other
-product is an expensive commercial system for horticulture aiming for a
-large scale of growth. Compared with this one, our product has the
-advantage of being cheap and small-scale which is more suitable for
-individual hobbyists to explore hydroponics.
-
-<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
-  <div style='display: inline-block; vertical-align: top;'>
-    <img src="./media/Image_003.jpg" style="width:auto;height:200"/>
-    <span class="caption">
-      <a href="https://aerogarden.com/gardens/harvest-family/Harvest-2.0.html">AeroGarden Harvest 2.0</a>
-      <ul style="text-align:left;">
-      <li>Inexpensive ($90)</li>
-      <li>Not Automated</li>
-      <li>Small Scale</li>
-      <li>No remote monitoring</li>
-    </ul>
-    </span>
-  </div>
-  <div style='display: inline-block; vertical-align: top;'>
-    <img src="./media/Image_004.jpg" style="width:auto;height:200" />
-    <span class="caption">
-      <a href="https://www.hydroexperts.com.au/Autogrow-MultiGrow-Controller-All-In-One-Controller-8-Growing-Zones">Autogrow Multigrow</a>
-      <ul style="text-align:left;">
-      <li>Expensive ($4500)</li>
-      <li>Fully Automated</li>
-      <li>Huge Scale</li>
-      <li>Cloud monitoring</li>
-    </ul>
-    </span>
-  </div>
-</div>
 
 # Design
 
