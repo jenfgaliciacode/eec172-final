@@ -55,32 +55,15 @@ Our source code can be found
 
 ### CC3200-LAUNCHXL Evaluation Board
 
-All control and logic was handled by two CC3200 microcontroller units,
-one each for the Master and Slave device. On the master device, it was
-responsible for decoding IR inputs from the remote to allow the user to
-input thresholds to be sent over AWS. The board’s SPI functionality,
-using the TI SPI library, was used to interface with the OLED display.
-The MCU is WiFi enabled, allowing a remote connection between the two
-boards.
+All of the control and logic is handled by the CC3200 Launchpad Board. The board is responsible for transitioning between the states of the system, decoding IR transmissions from the IR remote controller, controlling the OLED display via SPI, using a custom protocol to receive weight data from the weight sensor, and sending inventory status information through AWS.
 
-On the slave device, the microcontroller was responsible for the same
-functionalities as above, in addition to the TDS reading and control.
-This includes interfacing with the ADC over the I2C bus, reading 
-thresholds over HTTP from the AWS device shadow, writing the reported 
-TDS to the device shadow, and activating the two pumps using the 
-BJT control circuit.
+## Functional Blocks
 
-## Functional Blocks: Master
-
-### AWS IoT Core
+### IR Receiver
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 200px'>
-    The AWS IoT core allows our devices to communicate with each other
-    asynchronously. The master device can update the desired thresholds, and
-    the slave device will read them and synchronize them to the reported
-    state. The slave device will also post the TDS and temperature readings
-    periodically.
+    The user inputs item information using the IR Remote Controller. The falling edges from the signal triggers interrupts. The program decodes the pulse distances between each trigger to detect what button the user has pressed (0-9, delete, and enter). We integrated our multi-tap texting interface to allow users to input a variety of characters through repeated presses within a time threshold.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
@@ -94,10 +77,7 @@ BJT control circuit.
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    On both Master and Slave devices, the user can view the current TDS and
-    temperature of the plant solution on an OLED display. The user can also
-    use the display to view and edit the TDS thresholds. The CC3200 uses the
-    SPI bus to communicate with the display module.
+    We interfaced the OLED display via SPI. The user is able to view the item name they are entering, when the system wants them to calibrate the scale, when to place items, when the tracking system is activated, and when the system is sending a notification to their device.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
@@ -107,18 +87,26 @@ BJT control circuit.
   </div>
 </div>
 
-### IR Receiver
+### Weight Sensors
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    On both the Master and Slave devices, a user can input the TDS
-    thresholds using a TV remote. These TV remotes use the NEC code format
-    with a carrier frequency of 38KHz. The Vishay IR receiver is connected
-    to Pin 62 of the CC3200, which is configured as a GPIO input pin. Each
-    positive edge of the signal triggers an interrupt in the main program,
-    storing the pulse distances into a buffer, and allowing us to decode the
-    inputs (1-9, delete and enter). The IR receiver is connected to VCC
-    through a resistor and a capacitor to filter any ripples.
+    The weight sensor module consists of two components. The first component is the 20kg load cell. The load cell has 4 leads and a 5-10V drive voltage. It produces a direct output voltage signal due to force changes. To properly use the load cell, one end of the sensor is fixed by the screw hole while the other end is kept in a floating state. Force is applied on the side that is floating.  The second component of the weight sensor module is the HX711 AD Weight Module. This module uses 24 high-precision A/D converter chip HX711, is designed for high precision electronic scale and design. To interface with this weight sensor module, we first had to make the right connections between the 20kg load cell and the HX711 as well as between the HX711 and the CC3200.
+    * red wire (load cell) -> E+ (HX711)
+    * black wire (load cell) -> E- (HX711)
+    * green wire (load cell) -> A+ (HX711)
+    * white wire (load cell) -> A- (HX711)
+    * 5V (CC3200)          -> Vin (HX711)
+    * gnd (HX711)          -> gnd (CC3200)
+    * output GPIO (CC3200) -> clk(HX711)
+    * dataOut(HX711)       -> input GPIO
+    After making the right connections, in order to read data from the sensor we had to write code to follow the procedures of the custom serial protocol detailed in the HX711 data sheet. These procedures included:
+    * When dataOut is not ready for retrieval, the pin is high
+    * When dataOut goes low, it indicates data is ready for retrieval
+    * By applying 25 positive clock pulses at the clk pin, data is shifted out from the dataOut ouput pin
+    * Each clk pulse shifts out one bit, starting with the LSB first until all 24 bits are shifted out
+    * The 25th clk pulse pulls dataOut pin back to high
+    Once we were able to read the raw sensor data, the data needed to go through processing such as averaging and calibration. After all that, the weight sensor is ready prepared to give accurate weight readings.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
@@ -128,12 +116,7 @@ BJT control circuit.
   </div>
 </div>
 
-## Functional Blocks: Slave
-
-The slave device contains all the functional blocks from the master
-device, plus the following:
-
-### Analog-To-Digital Converter (ADC) Board
+### AWS IoT
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
@@ -160,13 +143,7 @@ device, plus the following:
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 300px;'>
-    Conductivity-based TDS measurements are sensitive to temperature. To
-    allow accurate TDS measurements in a variety of climates and seasons,
-    temperature compensation calculations must be performed. To measure the
-    temperature, we use an NTC thermistor connected in a voltage divider
-    with a 10k resistor. The voltage across the resistor is read by the ADC
-    and converted to temperature using the equation provided by the
-    thermistor datasheet.
+    The AWS IoT Core allows the board to send emails to the user when a specified threshold is reached. We utilize RESTful API to store data to the device shadow.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
     <div class="fig">
@@ -176,97 +153,13 @@ device, plus the following:
   </div>
 </div>
 
-### TDS Sensor Board
-
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
-  <div style='display: inline-block; vertical-align: top;flex:1 0 500px'>
-    In our first attempt to measure TDS, we used a simple two-probe analog
-    setup with a voltage divider. We soon found out that this was a naïve
-    approach (see Challenges). Consequently, we acquired a specialty TDS
-    sensing board from CQRobot, which generates a sinusoidal pulse and
-    measures the voltage drop to give a highly precise voltage to the ADC.
-    The MCU can then convert this voltage to a TDS value using the equation
-    provided by the device datasheet. We calibrated the TDS readings using a
-    standalone TDS sensor pen. After calibration and setting up the curves
-    for temperature compensation, we were able to achieve TDS readings
-    accurate to within 5% of the TDS sensor pen.
-  </div>
-  <div style='display: inline-block; vertical-align: top;flex:1 0 600px'>
-    <div class="fig">
-      <img src="./media/Image_012.jpg" style="width:auto;height:2in;padding-top:30px" />
-      <span class="caption">TDS Sensor Wiring Diagram</span>
-    </div>
-  </div>
-</div>
-
-### Pumps and Control Circuit
-
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
-  <div style='display: inline-block; vertical-align: top;flex:1 0 500px'>
-    The CC3200 is unable to provide sufficient power to drive the pumps,
-    which need 100mA of current each. Therefore, we used an external power
-    source in the form of 2 AA batteries for each pump motor. To allow the
-    CC3200 to turn on/off the motors, we designed a simple amplifier using a
-    Common Emitter topology. When the control pin is asserted HIGH, the BJT
-    will allow current to flow from 3V to ground through the pump motor.
-    Conversely, if the control signal is LOW, the BJT will not allow current
-    to flow in the motor. For each motor, there is a reverse-biased diode
-    connected across it. This protects our circuit from current generated by
-    the motor if it is spun from external force or inertia.
-  </div>
-  <div style='display: inline-block; vertical-align: top;flex:1 0 600px'>
-    <div class="fig">
-      <img src="./media/Image_013.jpg" style="width:auto;height:2in;padding-top:30px" />
-      <span class="caption">Pump Circuit Diagrams</span>
-    </div>
-  </div>
-</div>
-
 # Challenges
 
-The most significant challenge we faced while developing this prototype
-was of inaccurate and inconsistent Electrical Conductivity (EC)
-measurements. This occurred due to two reasons: probe channel
-polarization and current limitations of GPIO pins.
-
-## Probe Channel Polarization
-
-Our first design for the probe was simply two copper rods, which would
-add as electrodes. This probe would be connected in series with a
-1000-ohm resistor to act as a voltage divider. We would simply connect
-the probe to VCC and measure the voltage divider through the ADC,
-allowing us to calculate the EC. However, when we used the probe for a
-few minutes, we realized that the EC value would continue to rise. This
-is because the DC current causes an ionized channel to build up between
-the two electrodes in the water. This cause inconsistent EC readings as
-time goes on.
-
-## Current Limitation of GPIO Pins
-
-Our next idea was to try using the GPIO pins to power the probe, since
-we can turn it off when not needed, preventing excessive polarization.
-However, the GPIO pins are current limited, and any control circuit with
-a transistor would introduce extra voltage drops. Therefore, the simple
-two-probe implementation was not feasible.
-
-## Solution to Challenges
-
-We realized that using DC current to measure EC was not feasible.
-Therefore, we purchased a standalone EC measurement board from CQRobot.
-This inexpensive solution (\$8) used a low-voltage, low-current AC
-signal to prevent polarization. The board would convert the AC voltage
-drop across the solution to a DC analog voltage, which would then be
-read by our ADC. After calibrating the setup using a commercial TDS pen,
-the results were accurate within 3%, and would not drift by more than
-0.5% over time.
+One big challenge that we faced was figuring out how to read the weight sensor data from the HX711. Initially, we though we were going to be able to communicate with the peripheral through i2c. After some more thorough Internet searching we discovered that the HX711 is incompatible with i2c. Our next attempt was to use SPI co interface with the weight sensor. However, after more research we discovered that the typical SPI method that we learned in class was not going to work here either. As an aside, there are some HX711 APIs on github but they are only compatible with Arduino and not the CC3200. We spent some time trying to convert the Arduino code to work with the CC3200 but after a couple failed attempts, we just decided to reference the HX711 data sheet and write our own interface functions from scratch. In the end we figured it out. Another challenge was the construction of the scale. This challenge was mostly just due to poor planning and the time constraint.
 
 # Future Work
 
-Given more time, we had the idea of developing a web app to allow users
-to control the device from their cell phone. Another idea we wanted to
-implement in the future is adding a grow light and pH controller to
-maintain a more suitable and stable environment for different plants to
-grow.
+Due to time constraints, we were unable to finish integrating AWS into our system. In the future, we plan to complete setting up AWS, as it is a crucial feature of the Smart Inventory Management System that distinguishes it from existing products. Additionally, we aim to enhance the UI on the OLED display, making it more visually appealing to improve usability and efficiency, thereby enhancing overall user engagement. We also plan to develop a web application that displays inventory levels. Additionally. we would also spend more time developing our scale design. For this prototype we utilized cardboard to construct our scale to cut time and resources. With more time and resources it would be ideal to develop a shelving structure scale.
 
 
 # Finalized BOM
