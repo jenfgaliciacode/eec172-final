@@ -1,6 +1,6 @@
 ---
 title: 'Smart Inventory Management System'
-author: '**Jen Galicia and Michael Swinton** (website template by Ryan Tsang)'
+author: '**Jen Galicia and Michael Swinton**'
 date: '*EEC172 SQ24*'
 
 toc-title: 'Table of Contents'
@@ -27,26 +27,11 @@ Our source code can be found
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
   <div style="display:inline-block;vertical-align:top;flex:1 0 400px;">
-    As shown in the system flowchart, we use one of the CC3200 boards for
-    the closed feedback loop for maintaining concentration in the
-    environment. The board will read values with I2C protocol through an ADC
-    which reads values from the thermistor and the TDS meter sensor. The
-    board will also periodically read user-defined thresholds from the AWS
-    cloud using RESTful APIs. When the sensory values read outside of the
-    user-defined thresholds, the board will activate the motor control
-    function to pump either water or nutrient solution to bring the
-    concentration back within the thresholds. Meanwhile, another CC3200
-    board is frequently reading from the AWS cloud to present the current
-    TDS reading and user-defined threshold to the user on an OLED through
-    SPI protocols. To adjust the thresholds, the user can either do it
-    remotely or locally by using a TV remote to type the number into the IR
-    receiver. The adjustments will be updated to the AWS and if the user
-    updates remotely, the local CC3200 board will update the values in the
-    next synchronization.
+    As shown in the System Architecture Flowchart, we use a CC3200 board as the main module for connecting the peripherals of our system together. The board reads and decodes the IR transmissions from the IR Receiver as user input and displays that information onto the OLED display for the user to see. The board also reads the values from the weight sensors through a custom protocol. By using RESTful API, the board sends a notification to the AWS cloud when the board detects that the values from the weight sensors hit a certain threshold. This notification is sent to the user's email, which can be viewed on their personal device.
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 400px;">
     <div class="fig">
-      <img src="./media/Image_005.jpg" style="width:90%;height:auto;" />
+      <img src="./media/System-Architecture.drawio.png" style="width:90%;height:auto;" />
       <span class="caption">System Flowchart</span>
     </div>
   </div>
