@@ -67,8 +67,8 @@ All of the control and logic is handled by the CC3200 Launchpad Board. The board
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
-      <img src="./media/Image_007.jpg" style="width:auto;height:2.5in" />
-      <span class="caption">Device Shadow JSON</span>
+      <img src="./media/IR-Receiver.jpg" style="width:auto;height:2.5in" />
+      <span class="caption">IR Receiver Wiring Diagram</span>
     </div>
   </div>
 </div>
@@ -81,7 +81,7 @@ All of the control and logic is handled by the CC3200 Launchpad Board. The board
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
-      <img src="./media/Image_008.jpg" style="width:auto;height:2in" />
+      <img src="./media/OLED-Display.jpg" style="width:auto;height:2in" />
       <span class="caption">OLED Wiring Diagram</span>
     </div>
   </div>
@@ -112,50 +112,16 @@ All of the control and logic is handled by the CC3200 Launchpad Board. The board
     </ul>
     Once we were able to read the raw sensor data, the data needed to go through processing such as averaging and calibration. After all that, the weight sensor is ready prepared to give accurate weight readings.
   </div>
-  <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
-    <div class="fig">
-      <img src="./media/Image_009.jpg" style="width:auto;height:2in" />
-      <span class="caption">IR Receiver Wiring Diagram</span>
-    </div>
-  </div>
 </div>
 
 ### AWS IoT
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    The outputs from the thermistor and TDS sensor board are
-    in the form of analog voltages, which need to be converted to digital
-    values to be usable in our program. We chose the AD1015 breakout board
-    from Adafruit, which sports 4-channels and 12 bits of precision. We
-    ended up using only 2 channels, so there is a potential for even more
-    cost savings. The ADC board supports I2C communication, which we can use
-    to request and read the two channel voltages. 
-    The <a href="https://cdn-shop.adafruit.com/datasheets/ads1015.pdf">
-    product datasheet</a> contains the necessary configuration values
-    and register addresses for operation.
-  </div>
-  <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    <div class="fig">
-      <img src="./media/Image_010.jpg" style="width:auto;height:2in" />
-      <span class="caption">ADC Wiring Diagram</span>
-    </div>
-  </div>
-</div>
-
-### Thermistor
-
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
-  <div style='display: inline-block; vertical-align: top;flex:1 0 300px;'>
     The AWS IoT Core allows the board to send emails to the user when a specified threshold is reached. We utilize RESTful API to store data to the device shadow.
   </div>
-  <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    <div class="fig">
-      <img src="./media/Image_011.jpg" style="width:auto;height:2in" />
-      <span class="caption">Thermistor Circuit Diagram</span>
-    </div>
-  </div>
 </div>
+
 
 # Challenges
 
@@ -189,114 +155,34 @@ Due to time constraints, we were unable to finish integrating AWS into our syste
     <td><p>1</p></td>
     <td><p>CC3200-LAUNCHXL</p></td>
     <td><p>MCU Evaluation Board</p></td>
-    <td><p>2</p></td>
+    <td><p>1</p></td>
     <td><p>Provided by EEC172 Course</p></td>
     <td><p>$66.00</p></td>
-    <td><p>$132.00</p></td>
+    <td><p>$66.00</p></td>
     <td><p>Control Remote and Local Devices</p></td>
   </tr>
   <tr>
     <td><p>2</p></td>
     <td><p>Adafruit 1431 OLED</p></td>
     <td><p>128x128 RGB OLED Display. SPI protocol</p></td>
-    <td><p>2</p></td>
+    <td><p>1</p></td>
     <td><p>Provided by EEC172 Course</p></td>
     <td><p>$39.95</p></td>
-    <td><p>$79.90</p></td>
-    <td><p>Display PPM, Temperature, Thresholds, Inputs</p></td>
+    <td><p>$39.95</p></td>
+    <td><p>Display Inputs and Different States</p></td>
   </tr>
   <tr>
     <td><p>3</p></td>
-    <td><p>Adafruit 4547 3VDC Pump</p></td>
-    <td><p>Submersible pump. 3V 100mA DC</p></td>
-    <td><p>2</p></td>
-    <td><p>Adafruit</p></td>
-    <td><p>$2.95</p></td>
-    <td><p>$5.90</p></td>
-    <td><p>For dispensing water and nutrient solution</p></td>
-  </tr>
-  <tr>
-    <td><p>4</p></td>
-    <td><p>Adafruit 4545 6mm Tube</p></td>
-    <td><p>6mm Silicone Tube: 1 meter length</p></td>
-    <td><p>1</p></td>
-    <td><p>Adafruit</p></td>
-    <td><p>$1.50</p></td>
-    <td><p>$1.50</p></td>
-    <td><p>For dispensing water and nutrient solution</p></td>
-  </tr>
-  <tr>
-    <td><p>5</p></td>
-    <td><p>NTC Thermistor 10k</p></td>
-    <td><p>10k ohm nominal resistance, 100cm lead</p></td>
-    <td><p>1</p></td>
-    <td><p>(Already had one, available on Aliexpress)</p></td>
-    <td><p>$0.92</p></td>
-    <td><p>$0.92</p></td>
-    <td><p>For temperature compensation</p></td>
-  </tr>
-  <tr>
-    <td><p>6</p></td>
-    <td><p>Adafruit AD1015 12-bit ADC</p></td>
-    <td><p>12-bit resolution, 4 channels, I2C</p></td>
-    <td><p>1</p></td>
-    <td><p>Adafruit</p></td>
-    <td><p>$9.95</p></td>
-    <td><p>$9.95</p></td>
-    <td><p>To convert Thermistor and TDS sensor reading to digital</p></td>
-  </tr>
-  <tr>
-    <td><p>7</p></td>
-    <td><p>PN2222A Transistor</p></td>
-    <td><p>NPN BJT (40V, 1000mA)</p></td>
-    <td><p>2</p></td>
-    <td><p>Digikey (onSemi)</p></td>
-    <td><p>$0.40</p></td>
-    <td><p>$0.80</p></td>
-    <td><p>For digital motor control</p></td>
-  </tr>
-  <tr>
-    <td><p>8</p></td>
-    <td><p>1N4001 Rectifier Diode</p></td>
-    <td><p>Diffused junction: 50V 1000mA</p></td>
-    <td><p>2</p></td>
-    <td><p>Digikey (Good-Ark Semi)</p></td>
-    <td><p>$0.16</p></td>
-    <td><p>$0.32</p></td>
-    <td><p>Reverse Current Protection</p></td>
-  </tr>
-  <tr>
-    <td><p>9</p></td>
-    <td><p>10k ohm resistor</p></td>
-    <td><p>10k ohm , 1% tolerance, 0.25W</p></td>
-    <td><p>1</p></td>
-    <td><p>Digikey (Stackpole Electronics)</p></td>
-    <td><p>$0.10</p></td>
-    <td><p>$0.10</p></td>
-    <td><p>Voltage divider for Thermistor</p></td>
-  </tr>
-  <tr>
-    <td><p>10</p></td>
     <td><p>Vishay TSOP31130 IR RCVR</p></td>
     <td><p>30kHz carrier frequency</p></td>
-    <td><p>2</p></td>
+    <td><p>1</p></td>
     <td><p>Provided by EEC172 Course</p></td>
     <td><p>$1.41</p></td>
-    <td><p>$2.82</p></td>
+    <td><p>$1.41</p></td>
     <td><p>Decode user inputs</p></td>
   </tr>
   <tr>
-    <td><p>11</p></td>
-    <td><p>330 ohm resistor</p></td>
-    <td><p>330 ohm resistor, &lt;5% tolerance, 3W</p></td>
-    <td><p>2</p></td>
-    <td><p>Provided by EEC172 Course</p></td>
-    <td><p>$0.59</p></td>
-    <td><p>$1.18</p></td>
-    <td><p>Current Limit for IR Receiv er</p></td>
-  </tr>
-  <tr>
-    <td><p>12</p></td>
+    <td><p>4</p></td>
     <td><p>ATT-RC1534801 Remote</p></td>
     <td><p>General-purpose TV remote. IR NTC protocol</p></td>
     <td><p>1</p></td>
@@ -306,62 +192,31 @@ Due to time constraints, we were unable to finish integrating AWS into our syste
     <td><p>Allow user inputs</p></td>
   </tr>
   <tr>
-    <td><p>13</p></td>
-    <td><p>CQRSENTDS01 TDS Sensor</p></td>
-    <td><p>Analog reading 0-2.3V. 0-1000ppm range</p></td>
+    <td><p>5</p></td>
+    <td><p>HX711 Module</p></td>
+    <td><p>20kg load cell and HX711 Weight Sensor Module</p></td>
     <td><p>1</p></td>
-    <td><p>CQRobot</p></td>
-    <td><p>$7.99</p></td>
-    <td><p>$7.99</p></td>
-    <td><p>Measure TDS of plant solution</p></td>
-  </tr>
-  <tr>
-    <td><p>14</p></td>
-    <td><p>10uF Capacitor</p></td>
-    <td><p>Electrolytic Cap 100V</p></td>
-    <td><p>2</p></td>
-    <td><p>Provided by EEC172 Course</p></td>
-    <td><p>$0.18</p></td>
-    <td><p>$0.36</p></td>
-    <td><p>DC Filtering for IR Receiv er</p></td>
-  </tr>
-  <tr>
-    <td><p>15</p></td>
-    <td><p><u>AA Battery (4ct</u>)</p></td>
-    <td><p>1.5 Volt, Non-rechargable</p></td>
-    <td><p>1</p></td>
-    <td><p>Already had, but</p>
-      <p>available on Amazon</p></td>
-    <td><p>$3.65</p></td>
-    <td><p>$3.65</p></td>
-    <td><p>Provide Power to Motors</p></td>
-  </tr>
-  <tr>
-    <td><p>16</p></td>
-    <td><p>Battery Holder</p></td>
-    <td><p>2xAA (3 Volts Total)</p></td>
-    <td><p>2</p></td>
     <td><p>Amazon</p></td>
-    <td><p>$2.50</p></td>
-    <td><p>$4.99</p></td>
-    <td><p>Provide Power to Motors</p></td>
+    <td><p>$12.00</p></td>
+    <td><p>$12.00</p></td>
+    <td><p>Measure item weight</p></td>
   </tr>
   <tr>
     <td colspan="3">
       <p>TOTAL PARTS</p></td>
-    <td><p>25</p></td>
+    <td><p>5</p></td>
     <td colspan="2">
       <p>TOTAL</p></td>
-    <td><p>$262.37</p></td>
+    <td><p>$129.34</p></td>
     <td></td>
   </tr>
   <tr>
     <td colspan="3">
       <p>TOTAL PARTS (Excluding Provided)</p></td>
-    <td><p>14</p></td>
+    <td><p>1</p></td>
     <td colspan="2">
       <p>TOTAL (Exluding Provided)</p></td>
-    <td><p>$36.12</p></td>
+    <td><p>$12.00</p></td>
     <td></td>
   </tr>
 </tbody>
