@@ -10,7 +10,7 @@ abstract: 'The Smart Inventory Management System tracks inventory levels in real
 Our source code can be found 
 <!-- replace this link -->
 <a href="https://github.com/mwswinto/EEC172_Final_Project">
-  here (placeholder)</a>.
+  here</a>.
 
 <h2>Video Demo</h2>
 <div style="text-align:center;margin:auto;max-width:560px">
